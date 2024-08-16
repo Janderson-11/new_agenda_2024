@@ -219,10 +219,11 @@
                   } else {
                     // Se a consulta não retornar resultados, exibe uma mensagem
                     echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>Erro ao Acessar o sistema!</strong> Efetue o login ;(</div>';
+                    <strong>Não há Contatos!</strong> Efetue o login ;(</div>';
                   }
                 } catch (PDOException $e) {
-
+                  // Exibe a mensagem de erro PDO
+                  echo '<strong>ERRO DE PDO= </strong>' . $e->getMessage();
                 }
                     ?>                    
                   </tbody>
