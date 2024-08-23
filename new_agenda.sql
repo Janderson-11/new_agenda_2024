@@ -1,115 +1,82 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
--- https://www.phpmyadmin.net/
+-- MySQL dump 10.13  Distrib 8.0.39, for Linux (x86_64)
 --
--- Host: localhost:3306
--- Tempo de geração: 18/06/2024 às 13:14
--- Versão do servidor: 8.0.37-0ubuntu0.22.04.3
--- Versão do PHP: 8.1.2-1ubuntu2.17
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: new_agenda
+-- ------------------------------------------------------
+-- Server version	8.0.39-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Banco de dados: `new_agenda`
+-- Table structure for table `tb_contatos`
 --
 
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `tb_contatos`
---
-
+DROP TABLE IF EXISTS `tb_contatos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_contatos` (
-  `id_contatos` int NOT NULL,
+  `id_contatos` int NOT NULL AUTO_INCREMENT,
   `nome_contatos` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `fone_contatos` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email_contatos` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `foto_contatos` varchar(254) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `id_user` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_user` int DEFAULT NULL,
+  PRIMARY KEY (`id_contatos`),
+  KEY `fk_id_usuario` (`id_user`),
+  CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Despejando dados para a tabela `tb_contatos`
+-- Dumping data for table `tb_contatos`
 --
 
-INSERT INTO `tb_contatos` (`id_contatos`, `nome_contatos`, `fone_contatos`, `email_contatos`, `foto_contatos`, `id_user`) VALUES
-(24, 'Leandro Costa', '85991446499', 'leandro@gmail.com', '6671adc5b0274.jpg', 12),
-(25, 'Maria Ester', '88998654321', 'maria@yahoo.com.br', '6671b0a1c2a98.jpg', 11);
-
--- --------------------------------------------------------
+LOCK TABLES `tb_contatos` WRITE;
+/*!40000 ALTER TABLE `tb_contatos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_contatos` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura para tabela `tb_user`
+-- Table structure for table `tb_user`
 --
 
+DROP TABLE IF EXISTS `tb_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_user` (
-  `id_user` int NOT NULL,
+  `id_user` int NOT NULL AUTO_INCREMENT,
   `foto_user` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nome_user` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email_user` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `senha_user` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `senha_user` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Despejando dados para a tabela `tb_user`
+-- Dumping data for table `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `foto_user`, `nome_user`, `email_user`, `senha_user`) VALUES
-(11, '6671a58f7d486.jpg', 'Leandro Costa', 'leandro@gmail.com', '$2y$10$oJtpLVHZVymX224N2dfM.ud14mLImZtCJKQMl.IRQIrWT1NljcO3q'),
-(12, '6671a859b1046.jpg', 'Ana', 'ana@gmail.com', '$2y$10$/NMHwdnJ6wzjsc3lNDzu6ejxqFEzMNz4ajrXKSDPxjEJv4lXKDZGS');
+LOCK TABLES `tb_user` WRITE;
+/*!40000 ALTER TABLE `tb_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_user` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Índices para tabelas despejadas
---
-
---
--- Índices de tabela `tb_contatos`
---
-ALTER TABLE `tb_contatos`
-  ADD PRIMARY KEY (`id_contatos`),
-  ADD KEY `fk_id_usuario` (`id_user`);
-
---
--- Índices de tabela `tb_user`
---
-ALTER TABLE `tb_user`
-  ADD PRIMARY KEY (`id_user`);
-
---
--- AUTO_INCREMENT para tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `tb_contatos`
---
-ALTER TABLE `tb_contatos`
-  MODIFY `id_contatos` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT de tabela `tb_user`
---
-ALTER TABLE `tb_user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- Restrições para tabelas despejadas
---
-
---
--- Restrições para tabelas `tb_contatos`
---
-ALTER TABLE `tb_contatos`
-  ADD CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-08-23  9:50:24
